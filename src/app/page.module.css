@@ -25,6 +25,7 @@
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
   margin-bottom: 5vh;
+  margin-left: 1vw;
 }
 
 .output {
@@ -65,46 +66,41 @@
 }
 
 .selectDropdown {
-  width:15vw;
+  width:150px;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
   font-weight: 300;
   font-family: var(--font-mono);
-  margin-right: 2vw;
-
+  margin: 1vw;
 }
 
 .prompt {
-  width:44vw;
+  width:69vw;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
   font-weight: 300;
   font-family: var(--font-mono);
-  margin: auto;
+  margin: 1vw;
 }
 
 .submitButton {
-  width:7vw;
+  width:100px;
   padding: 1rem;
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
   font-weight: 300;
   font-family: var(--font-mono);
-  margin-left: 2vw;
+  margin: 1vw;
 }
 
 .inputArea {
   width: 50vw;
   margin: auto;
-}
-
-.promptInput {
-  width: 50vw;
 }
 
 .logo {

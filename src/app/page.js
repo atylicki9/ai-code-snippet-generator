@@ -11,13 +11,13 @@ export default function Home() {
       </div>
       <div className={styles.center} >
         <div className={styles.io}>
+            <input className={styles.prompt}/>
             <select className={styles.selectDropdown}>
               <option value="C#">C#</option>
               <option value="JavaScript">JavaScript</option>
               <option value="Python">Python</option>
               <option value="TypeScript">TypeScript</option>
             </select>
-            <input className={styles.prompt}/>
             <button className={styles.submitButton}>Submit</button>
         </div>
         <div className={styles.io}>
