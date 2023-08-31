@@ -17,14 +17,33 @@ export default function Home() {
   function submitCodeSnippetRequest(promptInput) {
     const fullPrompt = appendAdditionalPromptData(promptInput);
     console.log(`Prompt: ${fullPrompt}`)
-    
+
     // send prompt to openAI
-    const codeSnippetResponse = `Request sent with prompt ${fullPrompt} Connect to chat gpt later for this to work.`;
+    const codeSnippetResponse = generateCodeSnippet(fullPrompt);
     console.log(`Response: ${codeSnippetResponse}`)
 
     // show response in codeOutput
     setCodeOutput(codeSnippetResponse);
   }
+
+  const generateCodeSnippet = async (e) => {
+    const response = await fetch("/api/openAi", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+      }),
+    });
+  
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+  
+    let answer = await response.json();
+    return answer.choices[0].text;
+  };
 
   return (
     <main className={styles.main}>

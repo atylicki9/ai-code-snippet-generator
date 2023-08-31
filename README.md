@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Add your openAi API Token to a file called apiToken in the app directory
+```src/app/apiToken.js```
+
 First, run the development server:
 
 ```bash
