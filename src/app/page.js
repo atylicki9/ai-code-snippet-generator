@@ -26,23 +26,23 @@ export default function Home() {
     setCodeOutput(codeSnippetResponse);
   }
 
-  const generateCodeSnippet = async (e) => {
+  const generateCodeSnippet = async (fullPrompt) => {
     const response = await fetch("/api/openAi", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt,
+        fullPrompt,
       }),
     });
   
     if (!response.ok) {
+      console.log(response);
       throw new Error(response.statusText);
     }
   
-    let answer = await response.json();
-    return answer.choices[0].text;
+    return response.json.answer.choices[0].text;
   };
 
   return (
