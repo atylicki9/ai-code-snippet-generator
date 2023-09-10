@@ -2,6 +2,7 @@
 
 import styles from './page.module.css'
 import { useState } from 'react'
+import { API_TOKEN } from "@/app/apiToken";
 
 export default function Home() {
 
@@ -26,23 +27,29 @@ export default function Home() {
     setCodeOutput(codeSnippetResponse);
   }
 
-  const generateCodeSnippet = async (fullPrompt) => {
-
-    console.log("Sending request to /api/openAi")
-    const body = {
-      prompt: fullPrompt,
-    };
-
+  const generateCodeSnippet = async (fullPrompt ,res) => {
     try {
-      const response = await fetch('/api/openAi', {
+      const body = JSON.stringify({
+        messages: [{ role: 'user', content: fullPrompt }],
+        model: 'gpt-3.5-turbo',
+        stream: false,
+      })
+
+      const apiKey = API_TOKEN
+      const url = 'https://api.openai.com/v1/chat/completions'
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
         },
-        body: JSON.stringify(body)
+        body: body,
       })
-
-      return await response.json()
+  
+      const data = await response.json()
+      res.status(200).json({ data })
+      console.log(data)
     } catch (error) {
       console.log(error)
     }
