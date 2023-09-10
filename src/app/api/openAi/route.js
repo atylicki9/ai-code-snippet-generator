@@ -1,6 +1,7 @@
 import { API_TOKEN } from "@/app/apiToken";
 
-export default async function POST(req) {
+export async function POST(req, res) {
+  console.log(req.body)
   const { messages } = await req.body
   const apiKey = API_TOKEN
   const url = 'https://api.openai.com/v1/chat/completions'
@@ -18,10 +19,10 @@ export default async function POST(req) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
-      body,
+      body: body
     })
-    const data = await response.json()
-    res.status(200).json({ data })
+    return await response.json()
+    
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
