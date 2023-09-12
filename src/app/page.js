@@ -2,6 +2,7 @@
 
 import styles from './page.module.css'
 import { useState } from 'react'
+import { API_TOKEN } from './apiToken';
 
 export default function Home() {
 
@@ -11,15 +12,15 @@ export default function Home() {
 
   function appendAdditionalPromptData(promptFromInput) {
     // add additional parameters to prompt like length, coding lang, etc.
-    return `${promptFromInput} in ${codingLanguage}. Make the response code only and have no comments.`
+    return `${promptFromInput} in ${codingLanguage}. Make the response in code only and have no comments.`
   }
 
-  function submitCodeSnippetRequest(promptInput) {
+  async function submitCodeSnippetRequest(promptInput) {
     const fullPrompt = appendAdditionalPromptData(promptInput);
     console.log(`Prompt: ${fullPrompt}`)
 
     // send prompt to openAI
-    const codeSnippetResponse = generateCodeSnippet(fullPrompt);
+    const codeSnippetResponse = await generateCodeSnippet(fullPrompt);
     console.log(`Response: ${codeSnippetResponse}`)
 
     // show response in codeOutput
@@ -28,21 +29,23 @@ export default function Home() {
 
   const generateCodeSnippet = async (fullPrompt) => {
     try {
-      const body = JSON.stringify({
-        messages: [{ role: 'user', content: fullPrompt }],
-        model: 'gpt-3.5-turbo',
-        max_tokens: 10
-      })
-
-      const response = await fetch("/api/openAi", {
+      const options = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: body
-      })
+          "Authorization": `Bearer ${API_TOKEN}`,
+          "Content-Type": "application/json"
+         },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: fullPrompt }],
+          model: 'gpt-3.5-turbo',
+          max_tokens: 100
+        })
+      }
+      const data = await fetch('https://api.openai.com/v1/chat/completions', options)
 
-      return response;
+      const response = await data.json();
+
+      return response.choices[0].message.content;
 
     } catch (error) {
       console.log(error)
