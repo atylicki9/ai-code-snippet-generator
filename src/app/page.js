@@ -77,9 +77,11 @@ export default function Home() {
         </div>
         <div className={styles.io}>
           <div className={styles.output}>
-            <p>
-              <code className={styles.code}>{codeOutput}</code>
-            </p>
+            <pre>
+              <p>
+                <code className={styles.code}>{codeOutput}</code>
+              </p>
+            </pre>
           </div>
         </div>
       </div>
