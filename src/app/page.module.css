@@ -36,16 +36,19 @@
   width: 70vw;
   z-index: 2;
   font-family: var(--font-mono);
+  padding: 1rem;
 }
 
 .output p {
   position: relative;
   margin: 0;
-  padding: 1rem;
+  
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
   height: 200px;
+  overflow: scroll;
+  padding: 1rem;
 }
 
 .code {

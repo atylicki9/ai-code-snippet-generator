@@ -3,6 +3,7 @@
 import styles from './page.module.css'
 import { useState } from 'react'
 import { API_TOKEN } from './apiToken';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 export default function Home() {
 
@@ -12,7 +13,9 @@ export default function Home() {
 
   function appendAdditionalPromptData(promptFromInput) {
     // add additional parameters to prompt like length, coding lang, etc.
-    return `${promptFromInput} in ${codingLanguage}. Make the response in code only and have no comments.`
+    return `You are a code writer and you should only respond in the code that is asked of you.
+     Do not add comments or any explanation of the code. Also do not include ''' in your response. Here is the code for you
+     to write: ${promptFromInput} in ${codingLanguage}.`
   }
 
   async function submitCodeSnippetRequest(promptInput) {
@@ -21,6 +24,7 @@ export default function Home() {
 
     // send prompt to openAI
     const codeSnippetResponse = await generateCodeSnippet(fullPrompt);
+    //const codeSnippetResponse = "public static string GetCode { return someCode; }" // test code
     console.log(`Response: ${codeSnippetResponse}`)
 
     // show response in codeOutput
@@ -37,7 +41,7 @@ export default function Home() {
          },
         body: JSON.stringify({
           messages: [{ role: 'user', content: fullPrompt }],
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4',
           max_tokens: 100
         })
       }
@@ -79,7 +83,9 @@ export default function Home() {
           <div className={styles.output}>
             <pre>
               <p>
-                <code className={styles.code}>{codeOutput}</code>
+                <SyntaxHighlighter language="csharp">
+                  {codeOutput}
+                </SyntaxHighlighter>
               </p>
             </pre>
           </div>
