@@ -4,10 +4,12 @@ import styles from './page.module.css'
 import { useState } from 'react'
 import { API_TOKEN } from './apiToken';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { codingLanguages } from './Data/codingLanguages';
 
 export default function Home() {
 
-  const [codingLanguage, setCodingLanguage] = useState("C#");
+  const [codingLanguage, setCodingLanguage] = useState(codingLanguages.CSharp);
   const [prompt, setPrompt] = useState("");
   const [codeOutput, setCodeOutput] = useState("Code will appear here!");
 
@@ -24,7 +26,6 @@ export default function Home() {
 
     // send prompt to openAI
     const codeSnippetResponse = await generateCodeSnippet(fullPrompt);
-    //const codeSnippetResponse = "public static string GetCode { return someCode; }" // test code
     console.log(`Response: ${codeSnippetResponse}`)
 
     // show response in codeOutput
@@ -72,22 +73,18 @@ export default function Home() {
               onChange={(e) => setPrompt(e.target.value)}
             />
             <select className={styles.selectDropdown} value={codingLanguage} onChange={(e) => setCodingLanguage(e.target.value)}>
-              <option value="C#">C#</option>
-              <option value="JavaScript">JavaScript</option>
-              <option value="Python">Python</option>
-              <option value="TypeScript">TypeScript</option>
+              <option value={codingLanguages.CSharp}>C#</option>
+              <option value={codingLanguages.JavaScript}>JavaScript</option>
+              <option value={codingLanguages.Python}>Python</option>
+              <option value={codingLanguages.Typescript}>TypeScript</option>
             </select>
             <button className={styles.submitButton} onClick={e => submitCodeSnippetRequest(prompt)}>Submit</button>
         </div>
         <div className={styles.io}>
-          <div className={styles.output}>
-            <pre>
-              <p>
-                <SyntaxHighlighter language="csharp">
-                  {codeOutput}
-                </SyntaxHighlighter>
-              </p>
-            </pre>
+          <div className={styles.output}>           
+              <SyntaxHighlighter className={styles.codeResponse} language={codingLanguage} style={docco}>
+                {codeOutput}
+              </SyntaxHighlighter>
           </div>
         </div>
       </div>

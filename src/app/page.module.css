@@ -110,6 +110,13 @@
   position: relative;
 }
 
+.codeResponse {
+  border: solid;
+  border-radius: var(--border-radius);
+  border-color: #ffffff70;
+  max-height: 400px;
+}
+
 @media (prefers-reduced-motion) {
   .card:hover span {
     transform: none;
