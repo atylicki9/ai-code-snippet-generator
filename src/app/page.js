@@ -4,12 +4,12 @@ import styles from './page.module.css'
 import { useState } from 'react'
 import { API_TOKEN } from './apiToken';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { codingLanguages } from './Data/codingLanguages';
 
 export default function Home() {
 
-  const [codingLanguage, setCodingLanguage] = useState(codingLanguages.CSharp);
+  const [codingLanguage, setCodingLanguage] = useState(codingLanguages[0]);
   const [prompt, setPrompt] = useState("");
   const [codeOutput, setCodeOutput] = useState("Code will appear here!");
 
@@ -43,7 +43,7 @@ export default function Home() {
         body: JSON.stringify({
           messages: [{ role: 'user', content: fullPrompt }],
           model: 'gpt-4',
-          max_tokens: 100
+          max_tokens: 200
         })
       }
       const data = await fetch('https://api.openai.com/v1/chat/completions', options)
@@ -81,7 +81,7 @@ export default function Home() {
         </div>
         <div className={styles.io}>
           <div className={styles.output}>           
-              <SyntaxHighlighter className={styles.codeResponse} language={codingLanguage} style={docco}>
+              <SyntaxHighlighter className={styles.codeResponse} language={codingLanguage} style={vs2015}>
                 {codeOutput}
               </SyntaxHighlighter>
           </div>
