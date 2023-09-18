@@ -1,7 +1,9 @@
-export const codingLanguages = {
-    CSharp: 'csharp',
-    JavaScript: 'javascript',
-    Python: 'python',
-    Typescript: 'typescript'
-};
+export const codingLanguages = [
+    'CSharp', 
+    'Java',
+    'JavaScript', 
+    'Python', 
+    'Ruby',
+    'Typescript'
+];
 

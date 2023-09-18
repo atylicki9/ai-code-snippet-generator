@@ -73,10 +73,9 @@ export default function Home() {
               onChange={(e) => setPrompt(e.target.value)}
             />
             <select className={styles.selectDropdown} value={codingLanguage} onChange={(e) => setCodingLanguage(e.target.value)}>
-              <option value={codingLanguages.CSharp}>C#</option>
-              <option value={codingLanguages.JavaScript}>JavaScript</option>
-              <option value={codingLanguages.Python}>Python</option>
-              <option value={codingLanguages.Typescript}>TypeScript</option>
+              {codingLanguages.map((language) => (
+                <option value={language}>{language}</option>
+              ))} 
             </select>
             <button className={styles.submitButton} onClick={e => submitCodeSnippetRequest(prompt)}>Submit</button>
         </div>
